@@ -79,7 +79,18 @@ app.post('/links',
 /************************************************************/
 // Write your authentication routes here
 /************************************************************/
+app.post('/signup', (req, res, next) => {
 
+  let createResponse = models.Users.create({
+    username: req.body.username,
+    password: req.body.password
+  });
+
+  createResponse.then((data) => {
+    res.redirect(201, '/');
+  })
+  .error(error => res.redirect(409, '/signup'));
+});
 
 
 /************************************************************/
