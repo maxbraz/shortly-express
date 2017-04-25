@@ -31,7 +31,7 @@ module.exports = (db) => {
       return db.queryAsync(`
         CREATE TABLE IF NOT EXISTS clicks (
           id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-          linkId INT,
+          link_id INT,
           timestamp TIMESTAMP
         );`);
     })
@@ -42,9 +42,18 @@ module.exports = (db) => {
       return db.queryAsync(`
         CREATE TABLE IF NOT EXISTS link_users (
           id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-          linkId INT,
-          userId INT
+          link_id INT,
+          user_id INT
         );`);
+    })
+    .then(() => {
+      return db.queryAsync(`
+        CREATE TABLE IF NOT EXISTS sessions (
+          id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+          hash VARCHAR(64),
+          user_id INT,
+          timestamp TIMESTAMP
+        )`);
     })
 
 
