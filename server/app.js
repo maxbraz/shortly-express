@@ -81,15 +81,25 @@ app.post('/links',
 /************************************************************/
 app.post('/signup', (req, res, next) => {
 
-  let createResponse = models.Users.create({
-    username: req.body.username,
-    password: req.body.password
-  });
+  let createResponse = models.Users.create(req.body);
 
   createResponse.then((data) => {
     res.redirect(201, '/');
   })
   .error(error => res.redirect(409, '/signup'));
+});
+
+app.post('/login', (req, res, next) => {
+  debugger;
+  models.Users.verify(req.body)
+  .then((userVerified) => {
+    if (userVerified) {
+      res.redirect(200, '/');
+    } else {
+      res.redirect(404, '/login');
+    }
+  })
+  .error(error => res.redirect(404, '/login'));
 });
 
 
