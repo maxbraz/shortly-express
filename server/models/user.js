@@ -14,11 +14,22 @@ class User extends Model {
     return super.create.call(this, user);
   }
 
+  getUserName(userId) {
+    let options = {id: userId};
+    return super.get.call(this, options)
+    .then((user) => {
+      if (!user) {
+        throw user;
+      }
+      return user.username;
+    });
+  }
+
   verify(user) {
     let options = {username: user.username};
 
     return super.get.call(this, options).then((data) => {
-      if (data === undefined){
+      if (data === undefined) {
         return false;
       } else {
         let salt = data.salt;

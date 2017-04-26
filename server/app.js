@@ -90,10 +90,10 @@ app.post('/signup', (req, res, next) => {
 });
 
 app.post('/login', (req, res, next) => {
-  debugger;
   models.Users.verify(req.body)
   .then((userVerified) => {
     if (userVerified) {
+      // TODO: set session user
       res.redirect(200, '/');
     } else {
       res.redirect(404, '/login');

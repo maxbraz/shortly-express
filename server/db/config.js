@@ -51,7 +51,8 @@ module.exports = (db) => {
         CREATE TABLE IF NOT EXISTS sessions (
           id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
           hash VARCHAR(64),
-          user_id INT,
+          user_id INT DEFAULT NULL,
+          user_agent VARCHAR(205),
           timestamp TIMESTAMP
         )`);
     })
