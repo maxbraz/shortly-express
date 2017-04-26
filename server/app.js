@@ -4,6 +4,7 @@ const utils = require('./lib/hashUtils');
 const partials = require('express-partials');
 const bodyParser = require('body-parser');
 const Auth = require('./middleware/auth');
+const cookieParser = require('./middleware/cookieParser');
 const models = require('./models');
 
 const app = express();
@@ -17,6 +18,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // Serve static files from ../public directory
 app.use(express.static(path.join(__dirname, '../public')));
+app.use(cookieParser);
+app.use(Auth.createSession);
 
 
 app.get('/', 
@@ -100,6 +103,14 @@ app.post('/login', (req, res, next) => {
     }
   })
   .error(error => res.redirect(404, '/login'));
+});
+
+app.get('/logout', (req, res, next) => {
+  res.clearCookie('shortlyid');
+  models.Sessions.delete({hash: req.cookies.shortlyid})
+  .then((output) => {
+    res.redirect('/login');
+  });
 });
 
 

@@ -7,8 +7,8 @@ class Session extends Model {
     super('sessions');
   }
 
-  create() {
-    let session = {hash: utils.salt(32).toString('hex')};
+  create(userAgent) {
+    let session = {hash: utils.salt(32).toString('hex'), user_agent: userAgent};
     return super.create.call(this, session).then(() => { return session; });
   }
 

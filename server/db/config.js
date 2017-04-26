@@ -52,7 +52,7 @@ module.exports = (db) => {
           id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
           hash VARCHAR(64),
           user_id INT DEFAULT NULL,
-          user_agent VARCHAR(205),
+          user_agent VARCHAR(205) DEFAULT NULL,
           timestamp TIMESTAMP
         )`);
     })

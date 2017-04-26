@@ -29,7 +29,7 @@ class User extends Model {
     let options = {username: user.username};
 
     return super.get.call(this, options).then((data) => {
-      if (data === undefined) {
+      if (!data) {
         return false;
       } else {
         let salt = data.salt;
